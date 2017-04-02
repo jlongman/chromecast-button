@@ -4,8 +4,11 @@ import subprocess
 import os
 import signal
 
+pin = 4
+
+
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
 alternate = False
 
@@ -26,7 +29,7 @@ with open("/home/pi/chromecast-button/device", "w") as f:
   f.close
 
 while True:
-	input_state = GPIO.input(5)
+	input_state = GPIO.input(pin)
 	if input_state == False:
 		if alternate:
 			p = subprocess.Popen("/home/pi/chromecast-button/play.sh", shell=True, preexec_fn=os.setsid)
